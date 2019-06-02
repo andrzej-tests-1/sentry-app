@@ -1,0 +1,9 @@
+# Workaround for issue: https://github.com/helm/charts/pull/13891
+
+postgresql:
+  persistence:
+    resourcePolicy: nil
+
+anchore-feeds-db:
+  persistence:
+    resourcePolicy: nil
