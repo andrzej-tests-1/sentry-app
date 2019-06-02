@@ -22,3 +22,6 @@ set -x
 cd ../docker-sentry
 docker build --build-arg SENTRY_BUILD=$sha --rm -t sentry:git git
 docker build --rm -t sentry:git-onbuild git/onbuild
+
+docker tag sentry:git andrzejtests/test1:$sha
+docker push andrzejtests/test1:$sha
