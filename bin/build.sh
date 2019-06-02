@@ -1,5 +1,9 @@
 #!/bin/bash
 
+#####################################
+# Checking Inputs ...
+#####################################
+
 if [ ! -z "$(git status -s)" ]; then
     echo "error: uncommitted changes are exists ..."
     exit 1
@@ -14,7 +18,7 @@ set -e
 set -x
 set -u
 
-# By default take last commit top andrzej-tests-1 branch (last commits from master branch is not choosen because actual issue:
+# By default take last commit from andrzej-tests-1 branch (last commits from master branch is not choosen because of actual issue:
 # https://forum.sentry.io/t/enhancement-configs-not-found-on-latest-branches/6800)
 if [ $# -eq 0 ]; then
     set -- "$(curl -sSL 'https://api.github.com/repos/andrzej-tests-1/sentry.app/git/refs/heads/andrzej-tests-1' | awk -F '"' '$2 == "sha" { print $4 }')"
@@ -25,6 +29,11 @@ fi
 
 sha="$1"
 [[ $sha =~ ^[a-f0-9]{40}$ ]] || usage
+
+
+#####################################
+# Building and store images ...
+#####################################
 
 PROJECT=$(basename -s .git "$(git config --get remote.origin.url)")
 BRANCHNAME=$(git rev-parse --abbrev-ref HEAD)
