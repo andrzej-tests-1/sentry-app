@@ -1,0 +1,27 @@
+language: bash
+services: docker
+
+env:
+  - VERSION=9.0
+  - VERSION=9.1
+
+install:
+  - git clone https://github.com/docker-library/official-images.git ~/official-images
+
+before_script:
+  - env | sort
+  - cd "$VERSION"
+  - image="$(awk '$1 == "FROM" { print $2; exit }' onbuild/Dockerfile || echo "sentry:${VERSION}")"
+
+script:
+  - docker build -t "$image" .
+  - ~/official-images/test/run.sh "$image"
+  - $TRAVIS_BUILD_DIR/test/run.sh "$image"
+  - if [ -f onbuild/Dockerfile ]; then docker build -t "$image-onbuild" onbuild; fi
+  - if [ -f onbuild/Dockerfile ]; then ~/official-images/test/run.sh "$image-onbuild"; fi
+  - if [ -f onbuild/Dockerfile ]; then $TRAVIS_BUILD_DIR/test/run.sh "$image-onbuild"; fi
+
+after_script:
+  - docker images
+
+# vim:set et ts=2 sw=2:

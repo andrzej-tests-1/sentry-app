@@ -850,7 +850,7 @@ msgstr ""
 #: integrations/vsts/integration.py:71 integrations/vsts/integration.py:81
 #: integrations/vsts/integration.py:91
 msgid "Select a Status"
-msgstr ""
+msgstr "KSelect a Status KUKU1"
 
 #: integrations/jira/integration.py:56
 msgid ""
