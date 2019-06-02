@@ -1368,7 +1368,7 @@ msgstr ""
 #: static/sentry/app/views/settings/organization/stats/projectTable.jsx:45
 #: templates/sentry/account/notifications.html:136
 #: templates/sentry/admin/users/edit.html:39
-msgid "Project"
+msgid "Project1"
 msgstr ""
 
 #: templates/sentry/account/notifications.html:138
@@ -4062,7 +4062,7 @@ msgid "Create project"
 msgstr ""
 
 #: static/sentry/app/components/projectHeader/projectSelector.jsx:341
-msgid "Select a project"
+msgid "Select a project KUKU1"
 msgstr ""
 
 #: static/sentry/app/components/projectHeader/projectSelector.jsx:357
