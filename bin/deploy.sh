@@ -35,5 +35,5 @@ DOCKERIMAGEPREFIX="eu.gcr.io/$CLOUDSDK_CORE_PROJECT/$PROJECT"
 
 gcloud container clusters get-credentials $CLUSTER_NAME --zone "$CLUSTER_ZONE"
 
-helm install $(git rev-parse --show-toplevel)/helm-sentry --debug --name=$PROJECT-$VERSION-$RANDOM --set image.repository=$DOCKERIMAGEPREFIX/$BRANCHNAME,image.tag=4f1002ac,ingress.enabled=true -f $(git rev-parse --show-toplevel)/helm-sentry/fix-known-issue.yaml --wait
+helm install $(git rev-parse --show-toplevel)/helm-sentry --debug --name=$PROJECT-$VERSION-$RANDOM --set image.repository=$DOCKERIMAGEPREFIX/$BRANCHNAME,image.tag=$TAG,ingress.enabled=true -f $(git rev-parse --show-toplevel)/helm-sentry/fix-known-issue.yaml --wait
 
