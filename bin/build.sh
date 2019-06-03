@@ -14,10 +14,6 @@ usage () {
     exit 1
 }
 
-set -e
-set -x
-set -u
-
 # By default take last commit from andrzej-tests-1 branch (last commits from master branch is not choosen because of actual issue:
 # https://forum.sentry.io/t/enhancement-configs-not-found-on-latest-branches/6800)
 if [ $# -eq 0 ]; then
@@ -25,11 +21,15 @@ if [ $# -eq 0 ]; then
     echo "No sha specified, using refs/head/master ($1)"
 fi
 
-[[ $# -eq 1 ]] || usage
+if [[ $1 =~ ^[a-f0-9]{40}$ ]]; then
+        SHA=$1
+    else
+        usage
+fi
 
-sha="$1"
-[[ $sha =~ ^[a-f0-9]{40}$ ]] || usage
-
+set -e
+set -x
+set -u
 
 #####################################
 # Building and store images ...
@@ -37,12 +37,12 @@ sha="$1"
 
 PROJECT=$(basename -s .git "$(git config --get remote.origin.url)")
 BRANCHNAME=$(git rev-parse --abbrev-ref HEAD)
-VERSION="$(git rev-parse --short=8 HEAD)"
+VERSION="$(echo $SHA | cut -c -8)"
 DOCKERIMAGEPREFIX="eu.gcr.io/$CLOUDSDK_CORE_PROJECT/$PROJECT"
 
 cd "$(git rev-parse --show-toplevel)"/docker-sentry
 
-docker build --build-arg SENTRY_BUILD=$sha --rm -t $DOCKERIMAGEPREFIX/$BRANCHNAME:$VERSION git
+docker build --build-arg SENTRY_BUILD=$SHA --rm -t $DOCKERIMAGEPREFIX/$BRANCHNAME:$VERSION git
 docker push $DOCKERIMAGEPREFIX/$BRANCHNAME:$VERSION
 
 docker tag $DOCKERIMAGEPREFIX/$BRANCHNAME:$VERSION $DOCKERIMAGEPREFIX/$BRANCHNAME:latest

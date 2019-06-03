@@ -12,6 +12,8 @@ Included:
 * install gcp software (```https://cloud.google.com/sdk/docs/quickstart-linux```)
 * install ```docker-credential-gcr``` gcp software component (```gcloud components install docker-credential-gcr```
 * be sure your gcp account has access to pull/push in GCR
+* be sure your docker local instance has access to GCR (```$ gcloud auth configure-docker```)
+
 
 ### If you want to build&deploy last sentry version
 
