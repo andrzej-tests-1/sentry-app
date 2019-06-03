@@ -1,52 +1,45 @@
-.. raw:: html
+# Sentry application main repository
 
-   <p align="center">
-     <p align="center">
-       <img src="https://sentry-brand.storage.googleapis.com/sentry-logo-black.png" alt="Sentry" height="72"
-     </p>
-     <p align="center">
-       Users and logs provide clues. Sentry provides answers.
-     </p>
-   </p>
+Included:
+* source code of sentry application
+* script to build docker image and deploy it to GCR (```bin/build.sh```)
+* script to deploy sentry application (based on GCR built docker image) to GKE (```bin/deploy.sh```)
 
-What's Sentry?
---------------
+### If you want to configure build&deploy environment
 
-Sentry fundamentally is a service that helps you monitor and fix crashes in realtime.
-The server is in Python, but it contains a full API for sending events from any
-language, in any application.
+* install docker software (````https://docs.docker.com/install/linux/docker-ce/ubuntu/``)
+* be sure that your local user is in the docker group
+* install gcp software (```https://cloud.google.com/sdk/docs/quickstart-linux```)
+* install ```docker-credential-gcr``` gcp software component (```gcloud components install docker-credential-gcr```
+* be sure your gcp account has access to pull/push in GCR
 
-.. raw:: html
+### If you want to build&deploy last sentry version
 
-   <p align="center">
-     <img src="https://github.com/getsentry/sentry/raw/master/src/sentry/static/sentry/images/sentry-product-issue-screenshot.png" height="180">
-     <img src="https://github.com/getsentry/sentry/raw/master/src/sentry/static/sentry/images/sentry-product-project-screenshot.png" height="180">
-     <img src="https://github.com/getsentry/sentry/raw/master/src/sentry/static/sentry/images/sentry-product-releases-screenshot.png" height="180">
-   </p>
+You can build new docker image (from last commited version of andrzej-test-1 branch) and push it to GCR repositories by run:
 
-Official Sentry SDKs
-~~~~~~~~~~~~~~~~~~~~
-* `JavaScript <https://github.com/getsentry/raven-js>`_
-* `React-Native <https://github.com/getsentry/react-native-sentry>`_
-* `Python <https://github.com/getsentry/raven-python>`_
-* `Ruby <https://github.com/getsentry/raven-ruby>`_
-* `Node <https://github.com/getsentry/raven-node>`_
-* `PHP <https://github.com/getsentry/sentry-php>`_
-* `Go <https://github.com/getsentry/raven-go>`_
-* `Java <https://github.com/getsentry/sentry-java>`_
-* `Objective-C/Swift <https://github.com/getsentry/sentry-cocoa>`_
-* `C# <https://github.com/getsentry/raven-csharp>`_
-* `Perl <https://github.com/getsentry/perl-raven>`_
-* `Elixir <https://github.com/getsentry/sentry-elixir>`_
-* `Laravel <https://github.com/getsentry/sentry-laravel>`_
+```
+$ bin/build.sh
+```
 
-Resources
----------
+You can deploy sentry application from GCR image to GKE by run:
 
-* `Documentation <https://docs.sentry.io/>`_
-* `Community <https://forum.sentry.io/>`_ (Bugs, feature requests, general questions)
-* `Contributing <https://docs.sentry.io/internal/contributing/>`_
-* `Bug Tracker <https://github.com/getsentry/sentry/issues>`_
-* `Code <https://github.com/getsentry/sentry>`_
-* `IRC <irc://irc.freenode.net/sentry>`_  (irc.freenode.net, #sentry)
-* `Transifex <https://www.transifex.com/getsentry/sentry/>`_ (Translate Sentry!)
+```
+$ bin/deploy.sh
+```
+
+In the end of this script you will get information how to connect to new instance of Sentry application.
+
+### If you want to build&deploy some specific sentry version
+
+You can build new docker image within any commit (you have to use sha to do that) e.g. by run:
+
+```
+$ bin/build.sh 21e0e659a8a3a91641e99b67022c5d436ac183c3
+```
+
+and then push it in similary way:
+
+
+```
+$ bin/deploy.sh 21e0e659a8a3a91641e99b67022c5d436ac183c3
+```
