@@ -1,3 +1,4 @@
+.envrc
 .cache/
 .coverage
 .storybook-out/
