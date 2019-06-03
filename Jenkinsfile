@@ -5,6 +5,7 @@ pipeline {
             steps {
                 sh 'bin/build.sh'
             }
+        }
         stage('Deploy`') {
             steps {
                 sh 'echo TO BE DONE'
