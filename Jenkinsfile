@@ -15,5 +15,6 @@ pipeline {
             steps {
                 sh 'echo TO BE DONE'
             }
+        }
     }
 }
