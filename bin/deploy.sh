@@ -32,10 +32,12 @@ set -u
 #####################################
 
 PROJECT=$(basename -s .git "$(git config --get remote.origin.url)")
-BRANCHNAME=$(git rev-parse --abbrev-ref HEAD)
 DOCKERIMAGEPREFIX="eu.gcr.io/$CLOUDSDK_CORE_PROJECT/$PROJECT"
+RANDOMID=$RANDOM
 
 gcloud container clusters get-credentials $CLUSTER_NAME --zone "$CLUSTER_ZONE"
 
-helm install $(git rev-parse --show-toplevel)/helm-sentry --debug --name=$PROJECT-$VERSION-$RANDOM --set image.repository=$DOCKERIMAGEPREFIX,image.tag=$VERSION,ingress.enabled=true -f $(git rev-parse --show-toplevel)/helm-sentry/fix-known-issue.yaml --wait
+helm install $(git rev-parse --show-toplevel)/helm-sentry --debug --name=$PROJECT-$VERSION-$RANDOMID --set image.repository=$DOCKERIMAGEPREFIX,image.tag=$VERSION,ingress.enabled=true -f $(git rev-parse --show-toplevel)/helm-sentry/fix-known-issue.yaml --wait
 
+# env for for Jenkins next stages ...
+echo "export RANDOMID=$RANDOMID ; export PROJECT=$PROJECT ; export VERSION=$VERSION" > $(git rev-parse --show-toplevel)/envrandom
