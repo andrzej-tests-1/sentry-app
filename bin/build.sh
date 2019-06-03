@@ -36,14 +36,13 @@ set -u
 #####################################
 
 PROJECT=$(basename -s .git "$(git config --get remote.origin.url)")
-BRANCHNAME=$(git rev-parse --abbrev-ref HEAD)
 VERSION="$(echo $SHA | cut -c -8)"
 DOCKERIMAGEPREFIX="eu.gcr.io/$CLOUDSDK_CORE_PROJECT/$PROJECT"
 
 cd "$(git rev-parse --show-toplevel)"/docker-sentry
 
-docker build --build-arg SENTRY_BUILD=$SHA --rm -t $DOCKERIMAGEPREFIX/$BRANCHNAME:$VERSION git
-docker push $DOCKERIMAGEPREFIX/$BRANCHNAME:$VERSION
+docker build --build-arg SENTRY_BUILD=$SHA --rm -t $DOCKERIMAGEPREFIX:$VERSION git
+docker push $DOCKERIMAGEPREFIX:$VERSION
 
-docker tag $DOCKERIMAGEPREFIX/$BRANCHNAME:$VERSION $DOCKERIMAGEPREFIX/$BRANCHNAME:latest
-docker push $DOCKERIMAGEPREFIX/$BRANCHNAME:latest
+docker tag $DOCKERIMAGEPREFIX:$VERSION $DOCKERIMAGEPREFIX:latest
+docker push $DOCKERIMAGEPREFIX:latest

@@ -1,5 +1,9 @@
 pipeline {
     agent any
+    environment {
+        CLOUDSDK_CORE_PROJECT = credentials('CLOUDSDK_CORE_PROJECT')
+    }
+
     stages {
         stage('Build`') {
             steps {
