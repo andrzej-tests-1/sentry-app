@@ -14,10 +14,12 @@ If you already have infrastructure and jenkins host prepared, you can start with
 
 * install docker software (````https://docs.docker.com/install/linux/docker-ce/ubuntu/``)
 * be sure that your local user is in the docker group
-* install gcp software (```https://cloud.google.com/sdk/docs/quickstart-linux```)
+* install gcp software (```https://cloud.google.com/sdk/docs/quickstart-linux``` into ```/var/lib/jenkins/google-cloud-sdk```)
 * install ```docker-credential-gcr``` gcp software component (```gcloud components install docker-credential-gcr```
 * be sure your docker local instance has access to GCR (```$ gcloud auth configure-docker```)
 * configure docker access to GCR on jenkins machine (you can use account within storage.admin role) (```docker login -u _json_key -p "$(cat ~/json-gcr-admin.json)" https://eu.gcr.io```)
+* be sure that ```tiller``` package is pushed to k8s within proper ServiceAccount (```snap install helm --classic``` , ```kubectl create -f sentry-app/helm-sentry/rbac.yaml``` , ```helm init --service-account tiller```)
+
 
 ### If you want to build&deploy last sentry version
 

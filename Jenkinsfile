@@ -14,7 +14,7 @@ pipeline {
         }
         stage('Deploy`') {
             steps {
-                sh '. bin/deploy.sh'
+                sh 'export PATH=/var/lib/jenkins/google-cloud-sdk/bin/:$PATH ; bin/deploy.sh'
                 stash name:'envrandom', includes:'envrandom'
             }
         }
