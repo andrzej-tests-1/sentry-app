@@ -23,10 +23,6 @@ if [ "$VERSION" != "latest" ]; then
     VERSION="$(echo $SHA | cut -c -8)"
 fi
 
-set -x
-set -e
-set -u
-
 #####################################
 # Deploying ...
 #####################################
@@ -34,6 +30,10 @@ set -u
 PROJECT=$(basename -s .git "$(git config --get remote.origin.url)")
 DOCKERIMAGEPREFIX="eu.gcr.io/$CLOUDSDK_CORE_PROJECT/$PROJECT"
 RANDOMID=$RANDOM
+
+set -x
+set -e
+set -u
 
 gcloud container clusters get-credentials $CLUSTER_NAME --zone "$CLUSTER_ZONE"
 
