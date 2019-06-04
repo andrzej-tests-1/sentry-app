@@ -5,6 +5,11 @@ Included:
 * script to build docker image and deploy it to GCR (```bin/build.sh```)
 * script to deploy sentry application (based on GCR built docker image) to GKE (```bin/deploy.sh```)
 
+TODO:
+
+- more tests in test stage for Jenkins (and encapsulate it in some script)
+- add one IP address (or DNS name) for "main" branch and in the end of Jenkins pipeline reconnect to it with new one deployment (decided what about old ones)
+
 ### If you want to configure build&deploy environment
 
 If you want to prepare infratructure (GCE, GKE) for this project you can go to ```terraform-repo``` and go follow the ```README.md``` file.
