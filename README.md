@@ -7,6 +7,11 @@ Included:
 
 ### If you want to configure build&deploy environment
 
+If you want to prepare infratructure (GCE, GKE) for this project you can go to ```terraform-repo``` and go follow the ```README.md``` file.
+If you want to prepare jenkins host for this project you can go to ```ansible-repo``` and go follow the ```README.md``` file.
+
+If you already have infrastructure and jenkins host prepared, you can start within below needs:
+
 * install docker software (````https://docs.docker.com/install/linux/docker-ce/ubuntu/``)
 * be sure that your local user is in the docker group
 * install gcp software (```https://cloud.google.com/sdk/docs/quickstart-linux```)
